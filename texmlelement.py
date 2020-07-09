@@ -2,8 +2,8 @@ from types import FunctionType
 from exceptions import TeXMLError
 
 class TeXMLElement:
-    _attributes = {}
     _name = ''
+    _attributes = {}
     _nouns = []
     
     def __init__(self, *args, **kwargs):

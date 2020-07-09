@@ -44,6 +44,7 @@ class Response(TeXMLElement):
 
 
 class Dial(TeXMLElement):
+    _name = 'Dial'
     _attributes = dict(
         action=None,
         method=['GET', 'POST'],
@@ -64,13 +65,11 @@ class Dial(TeXMLElement):
             'absent'
         ]
     )
-
-    _name = 'Dial'
-
     _nouns = ['Number', 'Sip', 'Conference']
 
 
 class Number(TeXMLElement):
+    _name = 'Number'
     _attributes = dict(
         status_callback=None,
         status_callback_event=[
@@ -84,9 +83,10 @@ class Number(TeXMLElement):
         method=['GET', 'POST'],
         send_digits=lambda s: s.isdigit()
     )
-    _name = 'Number'
+    
 
 class Sip(TeXMLElement):
+    _name = 'Sip'
     _attributes = dict(
         status_callback=None,
         status_callback_event=[
@@ -98,11 +98,11 @@ class Sip(TeXMLElement):
         status_callback_method=['GET', 'POST'],
         url=None,
         method=['GET', 'POST']
-    )
-    _name = 'Sip'
+    )  
 
 
 class Conference(TeXMLElement):
+    _name = 'Conference'
     _attributes = dict(
         beep=[True, False, 'onEnter', 'onExit'],
         muted=[True, False],
@@ -112,9 +112,10 @@ class Conference(TeXMLElement):
         status_callback_event=['start', 'end', 'join', 'leave'],
         status_callback_method=['GET', 'POST']
     )
-    _name = 'Conference'
+    
 
 class Gather(TeXMLElement):
+    _name = 'Gather'
     _attributes = dict(
         action=None,
         finish_on_key=is_digit_pound_star,
@@ -122,7 +123,6 @@ class Gather(TeXMLElement):
         language=languages,
         timeout=lambda i: 1 <= i <= 120
     )
-    _name = 'Gather'
     _nouns = ['Say', 'Play']
 
 
@@ -131,20 +131,21 @@ class Hangup(TeXMLElement):
 
 
 class Pause(TeXMLElement):
+    _name = 'Pause'
     _attributes = dict(
         length=lambda i: 1 <= i <= 180
     )
-    _name = 'Pause'
 
 
 class Play(TeXMLElement):
+    _name = 'Play'
     _attributes = dict(
         loop=lambda i: 0 <= i <= 100
     )
-    _name = 'Play'
 
 
 class Record(TeXMLElement):
+    _name = 'Play'
     _attributes = dict(
         action=None,
         method=['GET', 'POST'],
@@ -153,27 +154,26 @@ class Record(TeXMLElement):
         recording_status_callback=None,
         recording_status_callback_method=['GET', 'POST']
     )
-    _name = 'Play'
 
 
 class Redirect(TeXMLElement):
+    _name = 'Record'
     _attributes = dict(
         method=['GET', 'POST']
     )
-    _name = 'Record'
 
 
 class Reject(TeXMLElement):
+    _name = 'Reject'
     _attributes=dict(
         reason=['rejected', 'busy']
     )
-    _name = 'Reject'
 
 
 class Say(TeXMLElement):
+    _name = 'Say'
     _attributes = dict(
         voice=['man', 'woman', 'alice'],
         language=languages,
         loop=lambda i: 0 <= i <= 100
     )
-    _name = 'Say'
