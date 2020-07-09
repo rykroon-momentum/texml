@@ -35,6 +35,11 @@ languages = [
 #Returns True if the string is only comprised of digits [0-9], '#', or '*'
 is_digit_pound_star = lambda s: all([c.isdigit() or c in ('#', '*') for c in s])
 
+def between(min, max):
+    def func(x):
+        return min <= x <= max
+    return func
+
 
 class Response(TeXMLElement):
     _name = 'Response'
@@ -121,7 +126,7 @@ class Gather(TeXMLElement):
         finish_on_key=is_digit_pound_star,
         num_digits=None,
         language=languages,
-        timeout=lambda i: 1 <= i <= 120
+        timeout=between(1, 120)
     )
     _nouns = ['Say', 'Play']
 
@@ -133,14 +138,14 @@ class Hangup(TeXMLElement):
 class Pause(TeXMLElement):
     _name = 'Pause'
     _attributes = dict(
-        length=lambda i: 1 <= i <= 180
+        length=between(1, 180)
     )
 
 
 class Play(TeXMLElement):
     _name = 'Play'
     _attributes = dict(
-        loop=lambda i: 0 <= i <= 100
+        loop=between(0, 100)
     )
 
 
@@ -175,5 +180,5 @@ class Say(TeXMLElement):
     _attributes = dict(
         voice=['man', 'woman', 'alice'],
         language=languages,
-        loop=lambda i: 0 <= i <= 100
+        loop=between(0, 100)
     )
