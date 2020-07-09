@@ -14,7 +14,7 @@ class TeXMLElement:
         #The text content inside the tag
         self.text = args[0] if args else None
 
-        for attr, option in kwargs.items():
+        for attr, value in kwargs.items():
 
             #raise error if invalid attribute
             if attr not in self._attributes:
@@ -30,26 +30,26 @@ class TeXMLElement:
             if options:
 
                 #if options is a list
-                if type(options) == list:
-                    if option not in options:
+                if type(options) in (list, tuple):
+                    if value not in options:
                         raise TeXMLError(
                             "option '{}' not allowed for attribute '{}'".format(
-                                option,
+                                value,
                                 attr
                             )
                         )
 
                 #if options is a function
                 elif type(options) == FunctionType:
-                    if not options(option):
+                    if not options(value):
                         raise TeXMLError(
                             "option '{}' not allowed for attribute '{}'".format(
-                                option,
+                                value,
                                 attr
                             )
                         )
 
-            setattr(self, attr, option)
+            setattr(self, attr, value)
 
         self.children = []
 
@@ -76,10 +76,20 @@ class TeXMLElement:
         return etree.tostring(e, pretty_print=True, encoding='unicode')
 
     def _to_element(self, parent=None):
+        attrib = {}
+        for attr, value in vars(self).items():
+            if attr in self._attributes and value is not None:
+                if type(value) == bool:
+                    value = str(value).lower()
+                else:
+                    value = str(value)
+
+                attrib[attr] = value
+
         if parent is None:
-            e = etree.Element(self._name, vars(self))
+            e = etree.Element(self._name, attrib=attrib)
         else:
-            e = etree.SubElement(parent, self._name, vars(self))
+            e = etree.SubElement(parent, self._name, attrib=attrib)
 
         if self.text:
             e.text = self.text
