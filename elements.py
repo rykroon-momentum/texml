@@ -1,5 +1,5 @@
 from texmlelement import TeXMLElement
-from options import between, is_digit_pound_star, LANGUAGES
+from options import between, is_digit_pound_star, METHODS, LANGUAGES
 
 
 class Response(TeXMLElement):
@@ -13,7 +13,7 @@ class Dial(TeXMLElement):
     _name = 'Dial'
     _attributes = dict(
         action=None,
-        method=('GET', 'POST'),
+        method=METHODS,
         caller_id=None,
         hangup_on_star=(True, False),
         record=(
@@ -24,7 +24,7 @@ class Dial(TeXMLElement):
             'record-from-ringing-dual'
         ),
         recording_status_callback=None,
-        recording_status_callback_method=('GET', 'POST'),
+        recording_status_callback_method=METHODS,
         recording_status_callback_event=(
             'in-progress', 
             'completed', 
@@ -44,9 +44,9 @@ class Number(TeXMLElement):
             'answered', 
             'completed'
         ),
-        status_callback_method=('GET', 'POST'),
+        status_callback_method=METHODS,
         url=None,
-        method=('GET', 'POST'),
+        method=METHODS,
         send_digits=lambda s: s.isdigit()
     )
     
@@ -61,9 +61,9 @@ class Sip(TeXMLElement):
             'answered', 
             'completed'
         ),
-        status_callback_method=('GET', 'POST'),
+        status_callback_method=METHODS,
         url=None,
-        method=('GET', 'POST')
+        method=METHODS
     )  
 
 
@@ -76,7 +76,7 @@ class Conference(TeXMLElement):
         end_conference_on_exit=(True, False),
         status_callback=None,
         status_callback_event=('start', 'end', 'join', 'leave'),
-        status_callback_method=('GET', 'POST')
+        status_callback_method=METHODS
     )
     
 
@@ -114,18 +114,18 @@ class Record(TeXMLElement):
     _name = 'Play'
     _attributes = dict(
         action=None,
-        method=('GET', 'POST'),
+        method=METHODS,
         finish_on_key=is_digit_pound_star,
         play_beep=(True, False),
         recording_status_callback=None,
-        recording_status_callback_method=('GET', 'POST')
+        recording_status_callback_method=METHODS
     )
 
 
 class Redirect(TeXMLElement):
     _name = 'Record'
     _attributes = dict(
-        method=('GET', 'POST')
+        method=METHODS
     )
 
 

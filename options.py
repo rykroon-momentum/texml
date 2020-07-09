@@ -1,15 +1,22 @@
-
-
 def between(min, max):
+    """
+        Returns a function that returns True when a number, x, 
+        is between the min and the max, otherwise False
+    """
     def func(x):
         return min <= x <= max
     return func
 
 
-#Returns True if the string is only comprised of digits [0-9], '#', or '*'
-is_digit_pound_star = lambda s: all([c.isdigit() or c in ('#', '*') for c in s])
+def is_digit_pound_start(string):
+    """
+        Returns True if all the characters in the string are comprised
+        of digits [0-9], pound ( # ) or star ( * ), otherwise False
+    """
+    return all([char.isdigit() or char in ('#', '*') for char in string])
 
-GET_OR_POST = ('GET', 'POST')
+
+METHODS = ('GET', 'POST')
 
 
 LANGUAGES = (
