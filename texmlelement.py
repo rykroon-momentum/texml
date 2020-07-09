@@ -1,3 +1,4 @@
+from lxml import etree
 from types import FunctionType
 from exceptions import TeXMLError
 
@@ -11,7 +12,7 @@ class TeXMLElement:
         self.__dict__ = dict.fromkeys(self._attributes)
 
         #The text content inside the tag
-        self.content = args[0] if args else None
+        self.text = args[0] if args else None
 
         for attr, option in kwargs.items():
 
@@ -71,5 +72,19 @@ class TeXMLElement:
         return '{}({})'.format(self.__class__.__name__, self.children)
 
     def __str__(self):
-        pass
+        e = self._to_element()
+        return etree.tostring(e, pretty_print=True, encoding='unicode')
 
+    def _to_element(self, parent=None):
+        if parent is None:
+            e = etree.Element(self._name, vars(self))
+        else:
+            e = etree.SubElement(parent, self._name, vars(self))
+
+        if self.text:
+            e.text = self.text
+
+        for child in self.children:
+            child._to_element(parent=e)
+
+        return e
