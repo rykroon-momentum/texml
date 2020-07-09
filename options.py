@@ -8,7 +8,7 @@ def between(min, max):
     return func
 
 
-def is_digit_pound_start(string):
+def is_digit_pound_star(string):
     """
         Returns True if all the characters in the string are comprised
         of digits [0-9], pound ( # ) or star ( * ), otherwise False
