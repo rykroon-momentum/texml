@@ -49,6 +49,9 @@ class Number(TeXMLElement):
         method=METHODS,
         send_digits=lambda s: s.isdigit()
     )
+
+    def __init__(self, text, **kwargs):
+        super().__init__(text, **kwargs)
     
 
 class Sip(TeXMLElement):
@@ -66,6 +69,9 @@ class Sip(TeXMLElement):
         method=METHODS
     )  
 
+    def __init__(self, text, **kwargs):
+        super().__init__(text, **kwargs)
+
 
 class Conference(TeXMLElement):
     _name = 'Conference'
@@ -78,6 +84,9 @@ class Conference(TeXMLElement):
         status_callback_event=('start', 'end', 'join', 'leave'),
         status_callback_method=METHODS
     )
+
+    def __init__(self, text, **kwargs):
+        super().__init__(text, **kwargs)
     
 
 class Gather(TeXMLElement):
@@ -109,6 +118,9 @@ class Play(TeXMLElement):
         loop=between(0, 100)
     )
 
+    def __init__(self, text, **kwargs):
+        super().__init__(text, **kwargs)
+
 
 class Record(TeXMLElement):
     _name = 'Play'
@@ -128,6 +140,9 @@ class Redirect(TeXMLElement):
         method=METHODS
     )
 
+    def __init__(self, text, **kwargs):
+        super().__init__(text, **kwargs)
+
 
 class Reject(TeXMLElement):
     _name = 'Reject'
@@ -143,3 +158,6 @@ class Say(TeXMLElement):
         language=LANGUAGES,
         loop=between(0, 100)
     )
+
+    def __init__(self, text, **kwargs):
+        super().__init__(text, **kwargs)
