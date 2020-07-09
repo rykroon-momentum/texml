@@ -4,6 +4,20 @@ from options import between, is_digit_pound_star, METHODS, LANGUAGES
 
 class Response(TeXMLElement):
     _name = 'Response'
+    _nouns = (
+        'Dial',
+        'Number',
+        'Sip',
+        'Conference',
+        'Gather',
+        'Hangup',
+        'Pause',
+        'Play',
+        'Record',
+        'Redirect',
+        'Reject',
+        'Say'
+    )
 
     def __init__(self):
         super().__init__()
