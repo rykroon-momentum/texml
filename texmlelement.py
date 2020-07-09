@@ -68,17 +68,6 @@ class TeXMLElement:
         self.children.append(element)
         return self
 
-    def __repr__(self):
-        d = {}
-        if self.text:
-            d['text'] = self.text
-
-        d.update(self.to_dict())
-
-        s = ', '.join('{}={}'.format(k, v) for k, v in d.items())
-
-        return '{}({})'.format(self.__class__.__name__, s)
-
     def __str__(self):
         e = self.to_element()
         return etree.tostring(e, pretty_print=True, encoding='unicode')
@@ -93,10 +82,10 @@ class TeXMLElement:
         for attr in self._attributes:
             value = getattr(self, attr)
             
-            if to_element and value is None:
-                continue
-
             if to_element:
+                if value is None:
+                    continue
+
                 if type(value) == bool:
                     value = str(value).lower()
                 else:
