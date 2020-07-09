@@ -1,5 +1,5 @@
-from texmlelement import TeXMLElement
-from options import between, is_digit_pound_star, METHODS, LANGUAGES
+from .texmlelement import TeXMLElement
+from .options import between, is_digit_pound_star, METHODS, LANGUAGES
 
 
 class Response(TeXMLElement):

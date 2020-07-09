@@ -1,6 +1,6 @@
 from lxml import etree
 from types import FunctionType
-from exceptions import TeXMLError
+from .exceptions import TeXMLError
 
 class TeXMLElement:
     _name = ''
