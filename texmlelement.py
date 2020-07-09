@@ -69,22 +69,45 @@ class TeXMLElement:
         return self
 
     def __repr__(self):
-        return '{}({})'.format(self.__class__.__name__, self.children)
+        d = {}
+        if self.text:
+            d['text'] = self.text
+
+        d.update(self.to_dict())
+
+        s = ', '.join('{}={}'.format(k, v) for k, v in d.items())
+
+        return '{}({})'.format(self.__class__.__name__, s)
 
     def __str__(self):
-        e = self._to_element()
+        e = self.to_element()
         return etree.tostring(e, pretty_print=True, encoding='unicode')
 
-    def _to_element(self, parent=None):
-        attrib = {}
-        for attr, value in vars(self).items():
-            if attr in self._attributes and value is not None:
+    def to_dict(self, to_element=False):
+        """
+            :param to_element: If True, exclude attributes with None values
+                and convert to str.
+            :type to_element: bool
+        """
+        d = {}
+        for attr in self._attributes:
+            value = getattr(self, attr)
+            
+            if to_element and value is None:
+                continue
+
+            if to_element:
                 if type(value) == bool:
                     value = str(value).lower()
                 else:
                     value = str(value)
 
-                attrib[attr] = value
+            d[attr] = value
+
+        return d
+
+    def to_element(self, parent=None):
+        attrib = self.to_dict(to_element=True)
 
         if parent is None:
             e = etree.Element(self._name, attrib=attrib)
@@ -95,6 +118,6 @@ class TeXMLElement:
             e.text = self.text
 
         for child in self.children:
-            child._to_element(parent=e)
+            child.to_element(parent=e)
 
         return e
