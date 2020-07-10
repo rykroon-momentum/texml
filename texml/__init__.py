@@ -1,4 +1,5 @@
-from .elements import Response, Dial, Number, Sip, Conference, Gather, Hangup, \
-    Pause, Play, Record, Redirect, Reject, Say
+from .elements import ResponseElement, DialElement, NumberElement, SipElement, \
+    ConferenceElement, GatherElement, HangupElement, PauseElement, PlayElement, \
+    RecordElement, RedirectElement, RejectElement, SayElement
 
-from .exceptions import TeXMLError
+from .exceptions import TeXMLError, InvalidAttribute, InvalidOption, NotAnElement, NotNestable
