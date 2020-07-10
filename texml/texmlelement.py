@@ -1,6 +1,6 @@
 from lxml import etree
 from types import FunctionType
-from .exceptions import InvalidAttribute, InvalidOption, NotNestable
+from .exceptions import InvalidAttribute, InvalidOption, NotAnElement, NotNestable
 
 
 class TeXMLElement:
@@ -40,10 +40,10 @@ class TeXMLElement:
 
     def append(self, element):
         if not isinstance(element, TeXMLElement):
-            raise NotNestable
+            raise NotAnElement(element)
 
         if element._tag not in self._nouns:
-            raise NotNestable
+            raise NotNestable(self._tag, element._tag)
 
         self.children.append(element)
         return self
