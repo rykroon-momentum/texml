@@ -1,6 +1,7 @@
 from lxml import etree
 from types import FunctionType
-from .exceptions import TeXMLError
+from .exceptions import InvalidAttribute, InvalidOption, NotNestable
+
 
 class TeXMLElement:
     _name = ''
@@ -18,36 +19,20 @@ class TeXMLElement:
 
             #raise error if invalid attribute
             if attr not in self._attributes:
-                raise TeXMLError(
-                    "attribute '{}' not allowed for element '{}'".format(
-                        attr, 
-                        self._name
-                    )
-                )
+                raise InvalidAttribute(attr, self._name)
             
-            #raise error if invalid option
             options = self._attributes.get(attr)
             if options:
 
                 #if options is a list
                 if type(options) in (list, tuple):
                     if value not in options:
-                        raise TeXMLError(
-                            "option '{}' not allowed for attribute '{}'".format(
-                                value,
-                                attr
-                            )
-                        )
+                        raise InvalidOption(value, attr)
 
                 #if options is a function
                 elif type(options) == FunctionType:
                     if not options(value):
-                        raise TeXMLError(
-                            "option '{}' not allowed for attribute '{}'".format(
-                                value,
-                                attr
-                            )
-                        )
+                        raise InvalidOption(value, attr)
 
             setattr(self, attr, value)
 
@@ -55,15 +40,10 @@ class TeXMLElement:
 
     def append(self, element):
         if not isinstance(element, TeXMLElement):
-            raise TeXMLError("element must be of type '{}'".format(TeXMLElement.__name__))
+            raise NotNestable
 
         if element._name not in self._nouns:
-            raise TeXMLError(
-                "'{}' element cannot be nested in a '{}' element".format(
-                    element._name,
-                    self._name
-                )
-            )
+            raise NotNestable
 
         self.children.append(element)
         return self
