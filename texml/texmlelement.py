@@ -5,12 +5,12 @@ from .exceptions import InvalidAttribute, InvalidOption, NotNestable
 
 class TeXMLElement:
     _name = ''
-    _attributes = {}
+    _attrs = {}
     _nouns = []
     
     def __init__(self, *args, **kwargs):
         #set all attributes to None
-        self.__dict__ = dict.fromkeys(self._attributes)
+        self.__dict__ = dict.fromkeys(self._attrs)
 
         #The text content inside the tag
         self.text = args[0] if args else None
@@ -18,10 +18,10 @@ class TeXMLElement:
         for attr, value in kwargs.items():
 
             #raise error if invalid attribute
-            if attr not in self._attributes:
+            if attr not in self._attrs:
                 raise InvalidAttribute(attr, self._name)
             
-            options = self._attributes.get(attr)
+            options = self._attrs.get(attr)
             if options:
 
                 #if options is a list
@@ -59,7 +59,7 @@ class TeXMLElement:
             :type to_element: bool
         """
         d = {}
-        for attr in self._attributes:
+        for attr in self._attrs:
             value = getattr(self, attr)
             
             if to_element:

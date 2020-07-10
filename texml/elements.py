@@ -25,7 +25,7 @@ class Response(TeXMLElement):
 
 class Dial(TeXMLElement):
     _name = 'Dial'
-    _attributes = dict(
+    _attrs = dict(
         action=None,
         method=METHODS,
         caller_id=None,
@@ -50,7 +50,7 @@ class Dial(TeXMLElement):
 
 class Number(TeXMLElement):
     _name = 'Number'
-    _attributes = dict(
+    _attrs = dict(
         status_callback=None,
         status_callback_event=(
             'initiated', 
@@ -70,7 +70,7 @@ class Number(TeXMLElement):
 
 class Sip(TeXMLElement):
     _name = 'Sip'
-    _attributes = dict(
+    _attrs = dict(
         status_callback=None,
         status_callback_event=(
             'initiated', 
@@ -89,7 +89,7 @@ class Sip(TeXMLElement):
 
 class Conference(TeXMLElement):
     _name = 'Conference'
-    _attributes = dict(
+    _attrs = dict(
         beep=(True, False, 'onEnter', 'onExit'),
         muted=(True, False),
         start_conference_on_enter=(True, False),
@@ -105,7 +105,7 @@ class Conference(TeXMLElement):
 
 class Gather(TeXMLElement):
     _name = 'Gather'
-    _attributes = dict(
+    _attrs = dict(
         action=None,
         finish_on_key=is_digit_pound_star,
         num_digits=None,
@@ -121,14 +121,14 @@ class Hangup(TeXMLElement):
 
 class Pause(TeXMLElement):
     _name = 'Pause'
-    _attributes = dict(
+    _attrs = dict(
         length=between(1, 180)
     )
 
 
 class Play(TeXMLElement):
     _name = 'Play'
-    _attributes = dict(
+    _attrs = dict(
         loop=between(0, 100)
     )
 
@@ -138,7 +138,7 @@ class Play(TeXMLElement):
 
 class Record(TeXMLElement):
     _name = 'Play'
-    _attributes = dict(
+    _attrs = dict(
         action=None,
         method=METHODS,
         finish_on_key=is_digit_pound_star,
@@ -150,7 +150,7 @@ class Record(TeXMLElement):
 
 class Redirect(TeXMLElement):
     _name = 'Record'
-    _attributes = dict(
+    _attrs = dict(
         method=METHODS
     )
 
@@ -160,14 +160,14 @@ class Redirect(TeXMLElement):
 
 class Reject(TeXMLElement):
     _name = 'Reject'
-    _attributes=dict(
+    _attrs=dict(
         reason=('rejected', 'busy')
     )
 
 
 class Say(TeXMLElement):
     _name = 'Say'
-    _attributes = dict(
+    _attrs = dict(
         voice=('man', 'woman', 'alice'),
         language=LANGUAGES,
         loop=between(0, 100)
