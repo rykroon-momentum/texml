@@ -3,7 +3,7 @@ from .options import between, is_digit_pound_star, METHODS, LANGUAGES
 
 
 class Response(TeXMLElement):
-    _name = 'Response'
+    _tag = 'Response'
     _nouns = (
         'Dial',
         'Number',
@@ -24,7 +24,7 @@ class Response(TeXMLElement):
 
 
 class Dial(TeXMLElement):
-    _name = 'Dial'
+    _tag = 'Dial'
     _attrs = dict(
         action=None,
         method=METHODS,
@@ -49,7 +49,7 @@ class Dial(TeXMLElement):
 
 
 class Number(TeXMLElement):
-    _name = 'Number'
+    _tag = 'Number'
     _attrs = dict(
         status_callback=None,
         status_callback_event=(
@@ -69,7 +69,7 @@ class Number(TeXMLElement):
     
 
 class Sip(TeXMLElement):
-    _name = 'Sip'
+    _tag = 'Sip'
     _attrs = dict(
         status_callback=None,
         status_callback_event=(
@@ -88,7 +88,7 @@ class Sip(TeXMLElement):
 
 
 class Conference(TeXMLElement):
-    _name = 'Conference'
+    _tag = 'Conference'
     _attrs = dict(
         beep=(True, False, 'onEnter', 'onExit'),
         muted=(True, False),
@@ -104,7 +104,7 @@ class Conference(TeXMLElement):
     
 
 class Gather(TeXMLElement):
-    _name = 'Gather'
+    _tag = 'Gather'
     _attrs = dict(
         action=None,
         finish_on_key=is_digit_pound_star,
@@ -116,18 +116,18 @@ class Gather(TeXMLElement):
 
 
 class Hangup(TeXMLElement):
-    _name = 'Hangup'
+    _tag = 'Hangup'
 
 
 class Pause(TeXMLElement):
-    _name = 'Pause'
+    _tag = 'Pause'
     _attrs = dict(
         length=between(1, 180)
     )
 
 
 class Play(TeXMLElement):
-    _name = 'Play'
+    _tag = 'Play'
     _attrs = dict(
         loop=between(0, 100)
     )
@@ -137,7 +137,7 @@ class Play(TeXMLElement):
 
 
 class Record(TeXMLElement):
-    _name = 'Play'
+    _tag = 'Play'
     _attrs = dict(
         action=None,
         method=METHODS,
@@ -149,7 +149,7 @@ class Record(TeXMLElement):
 
 
 class Redirect(TeXMLElement):
-    _name = 'Record'
+    _tag = 'Record'
     _attrs = dict(
         method=METHODS
     )
@@ -159,14 +159,14 @@ class Redirect(TeXMLElement):
 
 
 class Reject(TeXMLElement):
-    _name = 'Reject'
+    _tag = 'Reject'
     _attrs=dict(
         reason=('rejected', 'busy')
     )
 
 
 class Say(TeXMLElement):
-    _name = 'Say'
+    _tag = 'Say'
     _attrs = dict(
         voice=('man', 'woman', 'alice'),
         language=LANGUAGES,

@@ -4,7 +4,7 @@ from .exceptions import InvalidAttribute, InvalidOption, NotNestable
 
 
 class TeXMLElement:
-    _name = ''
+    _tag = ''
     _attrs = {}
     _nouns = []
     
@@ -19,7 +19,7 @@ class TeXMLElement:
 
             #raise error if invalid attribute
             if attr not in self._attrs:
-                raise InvalidAttribute(attr, self._name)
+                raise InvalidAttribute(attr, self._tag)
             
             options = self._attrs.get(attr)
             if options:
@@ -42,7 +42,7 @@ class TeXMLElement:
         if not isinstance(element, TeXMLElement):
             raise NotNestable
 
-        if element._name not in self._nouns:
+        if element._tag not in self._nouns:
             raise NotNestable
 
         self.children.append(element)
@@ -79,9 +79,9 @@ class TeXMLElement:
         attrib = self.to_dict(to_element=True)
 
         if parent is None:
-            e = etree.Element(self._name, attrib=attrib)
+            e = etree.Element(self._tag, attrib=attrib)
         else:
-            e = etree.SubElement(parent, self._name, attrib=attrib)
+            e = etree.SubElement(parent, self._tag, attrib=attrib)
 
         if self.text:
             e.text = self.text
