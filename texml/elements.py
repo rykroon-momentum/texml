@@ -2,7 +2,7 @@ from .texmlelement import TeXMLElement
 from .options import between, is_digit_pound_star, METHODS, LANGUAGES
 
 
-class Response(TeXMLElement):
+class ResponseElement(TeXMLElement):
     _tag = 'Response'
     _nouns = (
         'Dial',
@@ -23,7 +23,7 @@ class Response(TeXMLElement):
         super().__init__()
 
 
-class Dial(TeXMLElement):
+class DialElement(TeXMLElement):
     _tag = 'Dial'
     _attrs = dict(
         action=None,
@@ -48,7 +48,7 @@ class Dial(TeXMLElement):
     _nouns = ('Number', 'Sip', 'Conference')
 
 
-class Number(TeXMLElement):
+class NumberElement(TeXMLElement):
     _tag = 'Number'
     _attrs = dict(
         status_callback=None,
@@ -68,7 +68,7 @@ class Number(TeXMLElement):
         super().__init__(text, **kwargs)
     
 
-class Sip(TeXMLElement):
+class SipElement(TeXMLElement):
     _tag = 'Sip'
     _attrs = dict(
         status_callback=None,
@@ -87,7 +87,7 @@ class Sip(TeXMLElement):
         super().__init__(text, **kwargs)
 
 
-class Conference(TeXMLElement):
+class ConferenceElement(TeXMLElement):
     _tag = 'Conference'
     _attrs = dict(
         beep=(True, False, 'onEnter', 'onExit'),
@@ -103,7 +103,7 @@ class Conference(TeXMLElement):
         super().__init__(text, **kwargs)
     
 
-class Gather(TeXMLElement):
+class GatherElement(TeXMLElement):
     _tag = 'Gather'
     _attrs = dict(
         action=None,
@@ -115,18 +115,18 @@ class Gather(TeXMLElement):
     _nouns = ('Say', 'Play')
 
 
-class Hangup(TeXMLElement):
+class HangupElement(TeXMLElement):
     _tag = 'Hangup'
 
 
-class Pause(TeXMLElement):
+class PauseElement(TeXMLElement):
     _tag = 'Pause'
     _attrs = dict(
         length=between(1, 180)
     )
 
 
-class Play(TeXMLElement):
+class PlayElement(TeXMLElement):
     _tag = 'Play'
     _attrs = dict(
         loop=between(0, 100)
@@ -136,7 +136,7 @@ class Play(TeXMLElement):
         super().__init__(text, **kwargs)
 
 
-class Record(TeXMLElement):
+class RecordElement(TeXMLElement):
     _tag = 'Play'
     _attrs = dict(
         action=None,
@@ -148,7 +148,7 @@ class Record(TeXMLElement):
     )
 
 
-class Redirect(TeXMLElement):
+class RedirectElement(TeXMLElement):
     _tag = 'Record'
     _attrs = dict(
         method=METHODS
@@ -158,14 +158,14 @@ class Redirect(TeXMLElement):
         super().__init__(text, **kwargs)
 
 
-class Reject(TeXMLElement):
+class RejectElement(TeXMLElement):
     _tag = 'Reject'
     _attrs=dict(
         reason=('rejected', 'busy')
     )
 
 
-class Say(TeXMLElement):
+class SayElement(TeXMLElement):
     _tag = 'Say'
     _attrs = dict(
         voice=('man', 'woman', 'alice'),
